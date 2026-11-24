@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}{{ student.full_name }} · CampusDesk{% endblock %}
+{% block page_name %}Student profile{% endblock %}
+{% block content %}
+<div class="form-page">
+  <div class="back-row"><a href="{{ url_for('index') }}">← Back to directory</a><span class="form-step">STUDENT PROFILE</span></div>
+  <div class="profile-card">
+    <div class="profile-banner"></div><div class="profile-main"><div class="profile-large">{{ student.full_name[:1]|upper }}</div><div class="profile-name"><div class="active-tag"><i></i> Active record</div><h1>{{ student.full_name }}</h1><p>{{ student.department }} · {{ student.course or 'Course not specified' }}</p></div><a class="button primary profile-edit" href="{{ url_for('edit_student', student_id=student.id) }}">✎ &nbsp; Edit profile</a></div>
+    <div class="detail-grid">
+      {% for label, value in [('Roll number', student.roll_number), ('Email address', student.email), ('Phone number', student.phone or 'Not provided'), ('Department', student.department), ('Course', student.course or 'Not provided'), ('Year of study', 'Year ' ~ student.year_of_study), ('Gender', student.gender or 'Not provided'), ('Date of birth', student.date_of_birth or 'Not provided'), ('Address', student.address or 'Not provided'), ('Record created', student.created_at)] %}
+      <div class="detail-item"><small>{{ label }}</small><b>{{ value }}</b></div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
